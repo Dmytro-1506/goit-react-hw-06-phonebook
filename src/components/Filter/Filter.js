@@ -4,7 +4,7 @@ import { selectContacts } from 'components/Store/Contacts/selectors';
 
 export const Filter = () => {
     const dispatch = useDispatch();
-    const contacts = useSelector(selectContacts);
+    // const contacts = useSelector(selectContacts);
 
     const filterHandler = (e) => {
         const name = e.target.value
