@@ -1,35 +1,23 @@
 import './ContactList.css'
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { deleteContact } from 'components/Store/Contacts/actionCreators';
-import { selectContacts } from 'components/Store/Contacts/selectors';
-import { selectFilter } from 'components/Store/Filter/selectors';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeContact } from 'store/phonebookSlice';
 
 export const ContactList = () => {
-    const dispatch = useDispatch();
-    const contacts = useSelector(selectContacts);
-    const filter = useSelector(selectFilter);
-    console.log(filter);
-    const contactsList = () => {
-        if (filter.length > 0) {
-            return filter
-        }
-        return contacts
-    }
+    const dispatch = useDispatch()
+    const phonebook = useSelector(state => state.phonebook.contacts);
+    const filter = useSelector(state => state.phonebook.filter);
 
-    const deleteContactHendler = (id) => {
-        dispatch(deleteContact(id));
-    }
+    const findedContacts = phonebook.filter((element) => {
+        return element.name.toLowerCase().includes(filter.toLowerCase())
+    })
 
     return <div className='contacts'>
         <ul className="contact-list">
-            {contactsList().map(item => {
+            {findedContacts.map(item => {
                 return <li key={item.id} className='contact-item'>
                     <span>{item.name}:</span>
                     <span className='number'>{item.number}</span>
-                    <button type="button" className='deleteBtn' name={item.name}
-                        onClick={() => { deleteContactHendler(item.id) }}
-                    >Delete contact</button>
+                        <button type="button" className='deleteBtn' name={item.name} onClick={()=>{dispatch(removeContact(item.id))}}>Delete contact</button>
                     </li>
             })}
         </ul>

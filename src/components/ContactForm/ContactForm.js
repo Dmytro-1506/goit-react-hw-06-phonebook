@@ -1,23 +1,22 @@
 import './ContactForm.css'
 import { nanoid } from 'nanoid';
+import { addContact } from 'store/phonebookSlice';
 import { useDispatch } from 'react-redux';
-import { addContact } from 'components/Store/Contacts/actionCreators';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-
-  const onSubmitHendler = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
     const newContact = {
       id: nanoid(),
       name: event.target.name.value,
       number: event.target.number.value
     }
-    dispatch(addContact(newContact));
+    dispatch(addContact({newContact}))
+    ;
     event.target.reset()
   }
-
-  return <form className='form' onSubmit={(event) => { onSubmitHendler(event) }}>
+  return <form className='form' onSubmit={(event) => { onSubmit(event) }}>
     <p className='form-title'>Name</p>
     <input
       type="text"
