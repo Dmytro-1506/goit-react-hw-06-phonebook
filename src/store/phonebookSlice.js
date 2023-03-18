@@ -13,20 +13,13 @@ const phonebookSlice = createSlice({
     },
     reducers: {
         addContact(state, action) {
-            const newContact = action.payload.newContact;
-            const isExist = () => {
-                return state.contacts.find(contact => contact.name === newContact.name)
-            }
-            if (isExist()) {
-                return alert(`${newContact.name} is already in contacts`)
-            }
-            state.contacts.push(newContact)
+            state.contacts.push(action.payload.newContact)
         },
         removeContact(state, action) {
             state.contacts = state.contacts.filter(contact => contact.id !== action.payload)
         },
         filterContacts(state, action) {
-            state.filter = action.payload
+            state.filter = action.payload.trim()
         }
     }
 });
