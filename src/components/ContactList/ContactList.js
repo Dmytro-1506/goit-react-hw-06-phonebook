@@ -4,8 +4,8 @@ import { removeContact } from 'store/phonebookSlice';
 
 export const ContactList = () => {
     const dispatch = useDispatch()
-    const phonebook = useSelector(state => state.phonebook.contacts);
-    const filter = useSelector(state => state.phonebook.filter);
+    const phonebook = useSelector(state => state.contacts);
+    const filter = useSelector(state => state.filter);
 
     const findedContacts = phonebook.filter((element) => {
         return element.name.toLowerCase().includes(filter.toLowerCase())

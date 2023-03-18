@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import phonebookReducer from "./phonebookSlice";
 import {
     persistStore,
@@ -12,15 +12,13 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-const rootReducer = combineReducers({phonebook: phonebookReducer,})
-
 const persistConfig = {
     key: 'root',
     storage,
     blacklist: ['filter'],
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedReducer = persistReducer(persistConfig, phonebookReducer)
 
 export const store = configureStore({
     reducer: persistedReducer,

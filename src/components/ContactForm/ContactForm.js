@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.phonebook.contacts)
+  const contacts = useSelector(state => state.contacts)
   const onSubmit = (event) => {
     event.preventDefault();
     const newContact = {
